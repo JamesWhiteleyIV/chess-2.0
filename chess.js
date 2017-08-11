@@ -4,11 +4,10 @@
 // Copyright © James Whiteley IV
 
 
-
+//initiate game
 var game = new Phaser.Game(840, 640, Phaser.AUTO, null, {
 	preload: preload, create: create, update: update
 });
-
 
 textStyle = { font: "50px Open Sans", fill: "#ffff00", align: "center" };
 
@@ -46,6 +45,7 @@ for(var c=0; c<8; c++) {
 	}
 }
 
+//preload images
 function preload() {
 	game.stage.backgroundColor = "#dbd1b4";
 	game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -69,33 +69,8 @@ function preload() {
 
 }
 
+//initiate backend board to keep track of piece positions
 function create() {
-	/*
-		 whitePawn = ;
-		 whiteRook = ;
-		 whiteKnight = ;
-		 whiteBishop = ;
-		 whiteQueen = ;
-		 whiteKing = ;
-		 blackPawn = ;
-		 blackRook = ;
-		 blackKnight = ;
-		 blackBishop = ;
-		 blackQueen = ;
-		 blackKing = ;
-		 */
-
-	/*
-		 2 = white rooks
-		 3 = white nights
-		 4 = white bishop
-		 9 = white king
-		 8 = white queen
-		 1 = white pawns
-		 Black pieces use negative values
-		 Blank spaces is 0
-		 */
-
 
 	Square[0][0].pieceNumber = 2;
 	Square[0][1].pieceNumber = 3;
@@ -162,7 +137,7 @@ function create() {
 }
 
 
-
+//update front end board on each move
 function update() {
 	if(game.input.activePointer.leftButton.isDown) {
 		var row = Math.floor(this.input.activePointer.y/80);
@@ -266,6 +241,7 @@ function displayPiece(num) {
 	}
 }
 
+//remove green highlighting from a selected square
 function unselectSquare() {
 	for (p = 0; p<8; p++) {
 		for (q = 0; q < 8; q++) {
@@ -276,11 +252,7 @@ function unselectSquare() {
 
 
 
-
-
-
-
-
+//checks if player is in check/checkmate
 function checkGameState(playerCheck) {
 
 	var kingPlayer;
@@ -498,7 +470,7 @@ function checkGameState(playerCheck) {
 
 
 
-
+//move player piece
 function makeMove(rowFrom, colFrom, rowToo, colToo) {
 	// if space moving to == 0, switch array numbers
 	// else remove space moving to from board, then switch array numbers
@@ -531,7 +503,7 @@ function makeMove(rowFrom, colFrom, rowToo, colToo) {
 
 
 
-
+//add piece to player's captured vector
 function capture(piece, player) {
 
 	if(player == 1)
@@ -546,7 +518,7 @@ function capture(piece, player) {
 
 
 
-
+//checks if king is still alive
 function kingAlive(player) {
 	//returns false if player's king is dead
 	var checkKingState = false;
@@ -572,7 +544,7 @@ function kingAlive(player) {
 
 
 
-
+// move validation for piece
 function validMoveForPiece(piece, rowFrom, colFrom, rowToo, colToo) {
 
 	if(piece == 1) // white pawn
@@ -1396,13 +1368,7 @@ function validMoveForPiece(piece, rowFrom, colFrom, rowToo, colToo) {
 
 
 
-
-
-
-
-
-
-
+// checks if a pawn has reached opposite side of board
 function checkPromotion(player) {
 
 	if(player == 1) {
@@ -1426,7 +1392,7 @@ function checkPromotion(player) {
 
 
 
-
+//promotes pawn to queen
 function pawnPromotion(player) {
 
 	if (player == 1) {
@@ -1457,7 +1423,7 @@ function pawnPromotion(player) {
 
 
 
-
+// shows text on screen
 function displayText(text) {
 	stateText.setText(text);
 	stateText.visible = true;
@@ -1482,7 +1448,7 @@ function displayText(text) {
 	 }
 	 */
 
-
+// dissallow moving a player into check
 function moveIntoCheck(rowFrom, colFrom, rowToo, colToo) {
 
 	//we know its a valid move at this point
@@ -1561,15 +1527,7 @@ function moveIntoCheck(rowFrom, colFrom, rowToo, colToo) {
 
 
 
-
-
-
-
-
-
-
-
-
+// display captured pieces on side of board
 function displayCaptures() {
 	var whiteX = 660;
 	var whiteY = 20;
